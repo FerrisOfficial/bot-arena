@@ -13,8 +13,6 @@ class GUIobject(ABC):
         self.global_pos = None
         self.properties = kwargs
 
-        self.__click_switch = False
-
     def update(self, dt):
         pass
 
@@ -26,10 +24,4 @@ class GUIobject(ABC):
             )) 
     
     def is_clicked(self) -> bool:
-        if mouse.get_pressed()[0]:
-            if self.__click_switch:
-                return False
-            self.__click_switch = True
-            return self.in_mouse_range()
-        self.__click_switch = False
-        
+        return self.in_mouse_range() and mouse.get_pressed()[0]
